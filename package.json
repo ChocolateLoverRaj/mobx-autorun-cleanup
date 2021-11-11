@@ -46,5 +46,8 @@
     "name": "Rajas Paranjpe",
     "url": "https://github.com/ChocolateLoverRaj"
   },
-  "description": "Mobx autorun function with cleanup callback"
+  "description": "Mobx autorun function with cleanup callback",
+  "files": [
+    "./dist"
+  ]
 }
