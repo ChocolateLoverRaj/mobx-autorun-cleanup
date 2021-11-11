@@ -9,7 +9,7 @@
     "build:docs": "typedoc lib/index.ts"
   },
   "name": "mobx-autorun-cleanup",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/ChocolateLoverRaj/mobx-autorun-cleanup#readme",
   "license": "MIT",
   "repository": {
