@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "esModuleInterop": false,
+    "strictNullChecks": true,
+    "importHelpers": true,
+    "declaration": true,
+    "moduleResolution": "node"
+  }
+}

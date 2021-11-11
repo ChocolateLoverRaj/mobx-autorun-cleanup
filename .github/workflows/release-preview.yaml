@@ -1,0 +1,39 @@
+name: Release Preview
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  release-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.16"
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: "6.7"
+          run_install: true
+      - id: get_increment
+        name: Get Increment
+        uses: ChocolateLoverRaj/detect-increment@v1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - id: capitalize_increment
+        name: Capitalize Increment
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ steps.get_increment.outputs.increment }}
+      - name: Update Pull Request Labels
+        uses: ChocolateLoverRaj/label-manager@v1.0
+        with:
+          manage: '["Semver Increment: None","Semver Increment: Patch","Semver
+            Increment: Minor","Semver Increment: Major"]'
+          set: '["Semver Increment: ${{
+            steps.capitalize_increment.outputs.capitalized }}"]'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

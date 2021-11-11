@@ -1,0 +1,50 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.16"
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: "6.7"
+          run_install: true
+      - id: get_increment
+        name: Get Increment
+        uses: ChocolateLoverRaj/detect-increment@v1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: steps.get_increment.outputs.increment != 'none'
+        name: Setup GitHub Author
+        run: >-
+          git config --global user.email
+          "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git config --global user.name "github-actions[bot]"
+      - if: steps.get_increment.outputs.increment != 'none'
+        name: Semantic Release
+        run: |-
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          pnpx release-it ${{ steps.get_increment.outputs.increment }} --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - if: steps.get_increment.outputs.increment == 'none'
+        name: Build Docs
+        run: pnpm build:docs
+      - name: Deploy Docs to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          build_dir: docs
+          jekyll: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
