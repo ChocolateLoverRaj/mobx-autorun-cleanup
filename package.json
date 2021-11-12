@@ -48,6 +48,6 @@
   },
   "description": "Mobx autorun function with cleanup callback",
   "files": [
-    "./dist"
+    "dist"
   ]
 }
