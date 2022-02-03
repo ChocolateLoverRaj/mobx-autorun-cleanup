@@ -1,5 +1,5 @@
 import { observable, runInAction } from 'mobx'
-import { autorunCleanup } from '../index'
+import { autorunCleanup, Cleanup } from '../index'
 
 test('reactive', () => {
   const obj = observable({ theme: 'light' })
@@ -91,4 +91,29 @@ test('cleanup on stop', () => {
   stop()
   expectedLog.push([Action.CLEANUP, 'light'])
   expect(log).toEqual(expectedLog)
+})
+
+test('no cleanup returned', () => {
+  const obj = observable({ theme: 'light' })
+
+  // eslint-disable-next-line prefer-const
+  let returnFn: Cleanup | undefined
+  const stop = autorunCleanup(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    obj.theme
+    return returnFn
+  })
+
+  returnFn = jest.fn()
+  runInAction(() => {
+    obj.theme = 'dark'
+  })
+  expect(returnFn).toBeCalledTimes(0)
+
+  runInAction(() => {
+    obj.theme = 'rainbow'
+  })
+  expect(returnFn).toBeCalledTimes(1)
+
+  stop()
 })
