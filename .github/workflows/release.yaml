@@ -38,8 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - if: steps.get_increment.outputs.increment == 'none'
-        name: Build Docs
+      - name: Build Docs
         run: pnpm build:docs
       - name: Deploy Docs to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2
