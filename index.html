@@ -1,0 +1,220 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>mobx-autorun-cleanup</title>
+	<meta name="description" content="Documentation for mobx-autorun-cleanup">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">mobx-autorun-cleanup</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>mobx-autorun-cleanup</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#mobx-autorun-cleanup" id="mobx-autorun-cleanup" style="color: inherit; text-decoration: none;">
+					<h1>mobx-autorun-cleanup</h1>
+				</a>
+				<p>Mobx autorun function with cleanup callback</p>
+				<p><img src="https://img.shields.io/badge/Created%20with-@programmerraj/create-3cb371?style=flat" alt="Created with ">
+				<a href="https://github.com/standard/ts-standard"><img src="https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript" alt="TS-Standard - Typescript Standard Style Guide"></a></p>
+				<a href="#inspired-by" id="inspired-by" style="color: inherit; text-decoration: none;">
+					<h2>Inspired By</h2>
+				</a>
+				<p>This is very similar to the React <a href="https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup"><code>useEffect</code></a> hook.</p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">autorunCleanup</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;mobx-autorun-cleanup&#039;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">observable</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;mobx&#039;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">obj</span><span style="color: #000000"> = </span><span style="color: #795E26">observable</span><span style="color: #000000">({ </span><span style="color: #001080">theme:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;light&#039;</span><span style="color: #000000"> })</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stop</span><span style="color: #000000"> = </span><span style="color: #795E26">autorunCleanup</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">currentTheme</span><span style="color: #000000"> = </span><span style="color: #001080">obj</span><span style="color: #000000">.</span><span style="color: #001080">theme</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Load&#039;</span><span style="color: #000000">, </span><span style="color: #001080">currentTheme</span><span style="color: #000000">)</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Unload&#039;</span><span style="color: #000000">, </span><span style="color: #001080">currentTheme</span><span style="color: #000000">)</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">})</span>
+<span style="color: #008000">// Logs: Load light</span>
+
+<span style="color: #001080">obj</span><span style="color: #000000">.</span><span style="color: #001080">theme</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;dark&#039;</span>
+<span style="color: #008000">// Logs:</span>
+<span style="color: #008000">// Unload light</span>
+<span style="color: #008000">// Load dark</span>
+
+<span style="color: #008000">// If you want</span>
+<span style="color: #795E26">stop</span><span style="color: #000000">()</span>
+<span style="color: #008000">// Logs: Unload dark</span>
+</code></pre>
+				<a href="#differences-with-mobx-built-in-reaction" id="differences-with-mobx-built-in-reaction" style="color: inherit; text-decoration: none;">
+					<h2>Differences with <code>mobx</code> built-in <a href="https://mobx.js.org/reactions.html#reaction"><code>reaction</code></a></h2>
+				</a>
+				<p><code>mobx-autorun-cleanup</code> is actually very similar to <code>reaction</code>, which is part of <code>mobx</code>.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Feature</th>
+							<th><code>reaction</code></th>
+							<th><code>mobx-autorun-cleanup</code></th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Fn gets called first time</td>
+							<td>❌</td>
+							<td>✔️</td>
+						</tr>
+						<tr>
+							<td>Fn is called after reactions</td>
+							<td>✔️</td>
+							<td>✔️</td>
+						</tr>
+						<tr>
+							<td>Cleanup after reactions</td>
+							<td>✔️</td>
+							<td>✔️</td>
+						</tr>
+						<tr>
+							<td>Cleanup after stopped</td>
+							<td>❌</td>
+							<td>✔️</td>
+						</tr>
+						<tr>
+							<td>Cleanup is optional</td>
+							<td>✔️</td>
+							<td>✔️</td>
+						</tr>
+						<tr>
+							<td>Separated code for reactions and side effects</td>
+							<td>✔️</td>
+							<td>❌</td>
+						</tr>
+				</tbody></table>
+				<p>Here is the same example, but it uses <code>reaction</code> instead of <code>mobx-autorun-cleanup</code>:</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">observable</span><span style="color: #000000">, </span><span style="color: #001080">reaction</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;mobx&#039;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">obj</span><span style="color: #000000"> = </span><span style="color: #795E26">observable</span><span style="color: #000000">({ </span><span style="color: #001080">theme:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;light&#039;</span><span style="color: #000000"> })</span>
+
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Load&#039;</span><span style="color: #000000">, </span><span style="color: #001080">obj</span><span style="color: #000000">.</span><span style="color: #001080">theme</span><span style="color: #000000">)</span>
+<span style="color: #008000">// Logs: Load light</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stop</span><span style="color: #000000"> = </span><span style="color: #795E26">reaction</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">obj</span><span style="color: #000000">.</span><span style="color: #001080">theme</span><span style="color: #000000">, (</span><span style="color: #001080">currentTheme</span><span style="color: #000000">, </span><span style="color: #001080">previousTheme</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Unload&#039;</span><span style="color: #000000">, </span><span style="color: #001080">previousTheme</span><span style="color: #000000">)</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Load&#039;</span><span style="color: #000000">, </span><span style="color: #001080">currentTheme</span><span style="color: #000000">)</span>
+<span style="color: #000000">})</span>
+<span style="color: #008000">// Nothing is called until `obj.theme` is changed</span>
+
+<span style="color: #001080">obj</span><span style="color: #000000">.</span><span style="color: #001080">theme</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;dark&#039;</span>
+<span style="color: #008000">// Logs:</span>
+<span style="color: #008000">// Unload light</span>
+<span style="color: #008000">// Load dark</span>
+
+<span style="color: #008000">// If you want</span>
+<span style="color: #795E26">stop</span><span style="color: #000000">()</span>
+<span style="color: #008000">// Nothing is logged, because there is no cleanup fn</span>
+<span style="color: #008000">// You can now specify to unload</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Unload&#039;</span><span style="color: #000000">, </span><span style="color: #001080">obj</span><span style="color: #000000">.</span><span style="color: #001080">theme</span><span style="color: #000000">)</span>
+<span style="color: #008000">// Logs: Unload dark</span>
+</code></pre>
+				<a href="#how-to-choose-between-the-two" id="how-to-choose-between-the-two" style="color: inherit; text-decoration: none;">
+					<h3>How to choose between the two</h3>
+				</a>
+				<p>One way to think about the lifetime of the function and cleanup function is like a sandwich:</p>
+				<ul>
+					<li>The first bread is when the function gets initially called</li>
+					<li>The stuff inside is when the function gets re-run after a reaction</li>
+					<li>The last bread is when the reaction is stopped</li>
+				</ul>
+				<p><code>reaction</code> only calls the function in the middle of the sandwich. <code>mobx-autorun-cleanup</code> additionally calls the function initially, and calls the cleanup function in the end.</p>
+				<p>Based on this comparison, you can decide which function to use. I think generally <code>reaction</code> is for <em>side effects</em>, and <code>mobx-autorun-cleanup</code> is for <em>cleanup</em>.</p>
+				<a href="#typedoc" id="typedoc" style="color: inherit; text-decoration: none;">
+					<h2>Typedoc</h2>
+				</a>
+				<p><a href="https://chocolateloverraj.github.io/mobx-autorun-cleanup">https://chocolateloverraj.github.io/mobx-autorun-cleanup</a></p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Callback" class="tsd-kind-icon">Callback</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#Cleanup" class="tsd-kind-icon">Cleanup</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#autorunCleanup" class="tsd-kind-icon">autorun<wbr>Cleanup</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
